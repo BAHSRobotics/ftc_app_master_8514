@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.util;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /*
@@ -40,9 +39,9 @@ public class Wheels {
     }
 
     public void moveWheels(double power) {
-        // Moves all 4 wheels
+        /* Moves all 4 wheels */
         for (DcMotor aWheelsArray : wheelsArray) {
-            aWheelsArray.setPower(-power);
+            aWheelsArray.setPower(power * -1);
         }
     }
     public void stopWheels() {
@@ -64,23 +63,6 @@ public class Wheels {
                 break;
         }
     }
-    public void translate(double power, String direction) {
-        switch (direction) {
-            case "left":
-                wheelsArray[2].setPower(power);
-                wheelsArray[1].setPower(power);
-                wheelsArray[0].setPower(-power);
-                wheelsArray[3].setPower(-power);
-                break;
-            case "right":
-                wheelsArray[2].setPower(-power);
-                wheelsArray[1].setPower(-power);
-                wheelsArray[0].setPower(power);
-                wheelsArray[3].setPower(power);
-                break;
-        }
-    }
-
 
     public void setDirections() {
         /* Initializes wheel directions */

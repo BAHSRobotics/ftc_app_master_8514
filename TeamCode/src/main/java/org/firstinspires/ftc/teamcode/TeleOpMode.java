@@ -11,9 +11,10 @@ import org.firstinspires.ftc.teamcode.util.Wheels;
 /*
 NOTE TO READER:
 This OP Mode is a draft and contents may differ slightly from current software.
- */
+*/
 
-@TeleOp(name = "TeleOp", group = "Iterative Opmode")
+
+@TeleOp(name = "TeleOp2", group = "Iterative Opmode")
 //@Disabled
 public class TeleOpMode extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
@@ -72,8 +73,7 @@ public class TeleOpMode extends OpMode {
         wheels.moveWheels(leftPower, "left");
         // Right stick moves the two right wheels and turns left
         wheels.moveWheels(rightPower, "right");
-        if (gamepad1.dpad_left){ wheels.translate(1, "left");}
-        else if (gamepad1.dpad_right) {wheels.translate(1, "right");}
+
         // Rotates the arm 1 revolution when RT pressed
         if (arm.revComplete() && (gamepad2.right_trigger > 0.3) && canShoot) {
             arm.rotateArm();
