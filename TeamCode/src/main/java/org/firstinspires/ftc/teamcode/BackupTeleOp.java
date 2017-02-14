@@ -70,10 +70,10 @@ public class BackupTeleOp extends OpMode {
             wheels.moveWheels(1);
         } else if (gamepad1.dpad_down) {
             wheels.moveWheels(-1);
-        } else if (gamepad1.right_bumper) {
+        } else if (gamepad1.left_bumper) {
             wheels.moveWheels(1, "right");
             wheels.moveWheels(-1, "left");
-        } else if (gamepad1.left_bumper) {
+        } else if (gamepad1.right_bumper) {
             wheels.moveWheels(-1, "right");
             wheels.moveWheels(1, "left");
         } else if (gamepad1.right_stick_y != 0 || gamepad1.left_stick_y != 0) {
