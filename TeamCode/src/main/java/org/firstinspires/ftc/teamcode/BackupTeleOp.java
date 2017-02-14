@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.util.BackupWheels;
+import org.firstinspires.ftc.teamcode.util.Wheels;
 
 /*
 NOTE TO READER:
@@ -21,7 +21,7 @@ public class BackupTeleOp extends OpMode {
     private double rightWheelPower = 0;
     private double leftWheelPower = 0;
 
-    private BackupWheels wheels = new BackupWheels();
+    private Wheels wheels = new Wheels(null, null, null, null);
     private DcMotor catapultArm = null;
     private DcMotor sweeper = null;
     private ColorSensor colorSensor = null;
@@ -66,9 +66,9 @@ public class BackupTeleOp extends OpMode {
 
     private void controlWheels() {
         if (gamepad1.dpad_right) {
-            wheels.translateRight();
+            //wheels.translateRight();
         } else if (gamepad1.dpad_left) {
-            wheels.translateLeft();
+            //wheels.translateLeft();
         } else if (gamepad1.dpad_up) {
             wheels.moveWheels(1);
         } else if (gamepad1.dpad_down) {

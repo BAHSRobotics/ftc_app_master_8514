@@ -72,8 +72,8 @@ public class WheelTest extends OpMode {
         wheels.moveWheels(leftPower, "left");
         // Right stick moves the two right wheels and turns left
         wheels.moveWheels(rightPower, "right");
-        if (gamepad1.dpad_left){ wheels.translate(1, "left");}
-        else if (gamepad1.dpad_right) {wheels.translate(1, "right");}
+        //if (gamepad1.dpad_left){ wheels.translate(1, "left");}
+        //else if (gamepad1.dpad_right) {wheels.translate(1, "right");}
         // Rotates the arm 1 revolution when RT pressed
         /*if (arm.revComplete() && (gamepad2.right_trigger > 0.3) && canShoot) {
             arm.rotateArm();
