@@ -39,9 +39,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.util.Wheels;
 
-@Autonomous(name="AutoOp", group="Linear Opmode")
+@Autonomous(name="ClassicAutoOp", group="Linear Opmode")
 //@Disabled
-public class AutoOp extends LinearOpMode {
+public class ClassicAutoOp extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private Wheels wheels = new Wheels();
