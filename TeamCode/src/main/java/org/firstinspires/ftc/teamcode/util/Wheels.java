@@ -71,4 +71,18 @@ public class Wheels {
         wheelsArray[2].setDirection(DcMotor.Direction.FORWARD);
         wheelsArray[3].setDirection(DcMotor.Direction.FORWARD);
     }
+
+    public void translateRight() {
+        wheelsArray[0].setPower(-1);
+        wheelsArray[1].setPower(1);
+        wheelsArray[2].setPower(1);
+        wheelsArray[3].setPower(-1);
+    }
+
+    public void translateLeft() {
+        wheelsArray[0].setPower(1);
+        wheelsArray[1].setPower(-1);
+        wheelsArray[2].setPower(-1);
+        wheelsArray[3].setPower(1);
+    }
 }

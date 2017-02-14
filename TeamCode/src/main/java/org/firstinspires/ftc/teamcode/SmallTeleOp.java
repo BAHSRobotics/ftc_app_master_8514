@@ -53,9 +53,9 @@ public class SmallTeleOp extends OpMode {
 
     public void controlWheels() {
         if (gamepad1.dpad_right) {
-            //wheels.translateRight();
+            wheels.translateRight();
         } else if (gamepad1.dpad_left) {
-            //wheels.translateLeft();
+            wheels.translateLeft();
         } else if (gamepad1.dpad_up) {
             wheels.moveWheels(1);
         } else if (gamepad1.dpad_down) {
