@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -24,7 +23,6 @@ public class BackupTeleOp extends OpMode {
     private Wheels wheels = new Wheels(null, null, null, null);
     private DcMotor catapultArm = null;
     private DcMotor sweeper = null;
-    private ColorSensor colorSensor = null;
 
     private double targetSweeperPower = 0;
     private double sweeperPower = 0;
@@ -37,7 +35,6 @@ public class BackupTeleOp extends OpMode {
         wheels.mapWheels(hardwareMap);
         catapultArm = hardwareMap.dcMotor.get("catapultArm");
         sweeper = hardwareMap.dcMotor.get("sweeper");
-        //colorSensor = hardwareMap.dcMotor.get("colorSensor");
         wheels.setDirections();
     }
 
