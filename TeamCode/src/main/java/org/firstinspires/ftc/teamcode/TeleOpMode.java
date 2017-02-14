@@ -36,7 +36,7 @@ public class TeleOpMode extends OpMode {
     private double sweeperPower = 0;
     private double targetSweeperPower = 0;
 
-    private Wheels wheels = new Wheels(null, null, null, null);
+    private Wheels wheels = new Wheels();
     private Arm arm = new Arm(null, null);
 
     // Runs ONCE when the driver hits INIT

@@ -44,7 +44,7 @@ import org.firstinspires.ftc.teamcode.util.Wheels;
 public class AutoOp extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private Wheels wheels = new Wheels(null, null, null, null);
+    private Wheels wheels = new Wheels();
     private DcMotor catapultArm = null;
     private DcMotor sweeper = null;
 

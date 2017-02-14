@@ -18,7 +18,7 @@ public class SmallTeleOp extends OpMode {
     private double rightWheelPower = 0;
     private double leftWheelPower = 0;
 
-    private Wheels wheels = new Wheels(null, null, null, null);
+    private Wheels wheels = new Wheels();
 
     //private ColorSensor colorSensor = null;
     //private Servo servo = null;

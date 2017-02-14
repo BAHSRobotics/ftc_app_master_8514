@@ -10,25 +10,7 @@ This Utility File is a draft and contents may differ slightly from current softw
 
 public class Wheels {
 
-    private DcMotor rightFrontMotor;
-    private DcMotor rightBackMotor;
-    private DcMotor leftFrontMotor;
-    private DcMotor leftBackMotor;
-    private DcMotor[] wheelsArray = {
-            rightFrontMotor,
-            rightBackMotor,
-            leftFrontMotor,
-            leftBackMotor
-    };
-
-    public Wheels(DcMotor rightFrontMotor, DcMotor rightBackMotor,
-                  DcMotor leftFrontMotor, DcMotor leftBackMotor) {
-        /* Initializes wheels */
-        this.rightFrontMotor = rightFrontMotor;
-        this.rightBackMotor = rightBackMotor;
-        this.leftFrontMotor = leftFrontMotor;
-        this.leftBackMotor = leftBackMotor;
-    }
+    private DcMotor[] wheelsArray = new DcMotor[4];
 
     public void mapWheels(HardwareMap hardwareMap) {
         /* Assigns software variables to hardware */
