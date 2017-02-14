@@ -2,11 +2,10 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.util.BackupWheels;
+import org.firstinspires.ftc.teamcode.util.Wheels;
 
 /*
 NOTE TO READER:
@@ -21,10 +20,9 @@ public class BackupTeleOp extends OpMode {
     private double rightWheelPower = 0;
     private double leftWheelPower = 0;
 
-    private BackupWheels wheels = new BackupWheels();
+    private Wheels wheels = new Wheels();
     private DcMotor catapultArm = null;
     private DcMotor sweeper = null;
-    private ColorSensor colorSensor = null;
 
     private double targetSweeperPower = 0;
     private double sweeperPower = 0;
@@ -37,7 +35,6 @@ public class BackupTeleOp extends OpMode {
         wheels.mapWheels(hardwareMap);
         catapultArm = hardwareMap.dcMotor.get("catapultArm");
         sweeper = hardwareMap.dcMotor.get("sweeper");
-        //colorSensor = hardwareMap.dcMotor.get("colorSensor");
         wheels.setDirections();
     }
 
@@ -73,10 +70,10 @@ public class BackupTeleOp extends OpMode {
             wheels.moveWheels(1);
         } else if (gamepad1.dpad_down) {
             wheels.moveWheels(-1);
-        } else if (gamepad1.right_bumper) {
+        } else if (gamepad1.left_bumper) {
             wheels.moveWheels(1, "right");
             wheels.moveWheels(-1, "left");
-        } else if (gamepad1.left_bumper) {
+        } else if (gamepad1.right_bumper) {
             wheels.moveWheels(-1, "right");
             wheels.moveWheels(1, "left");
         } else if (gamepad1.right_stick_y != 0 || gamepad1.left_stick_y != 0) {

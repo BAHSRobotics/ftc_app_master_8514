@@ -1,39 +1,42 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.util.BackupWheels;
+import org.firstinspires.ftc.teamcode.util.Wheels;
 
 
 @TeleOp(name = "SmallTeleOp", group = "Iterative Opmode")
+@Disabled
 public class SmallTeleOp extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     private double rightWheelPower = 0;
     private double leftWheelPower = 0;
 
-    private BackupWheels wheels = new BackupWheels();
+    private Wheels wheels = new Wheels();
 
-    private ColorSensor colorSensor = null;
-    private Servo servo = null;
+    //private ColorSensor colorSensor = null;
+    //private Servo servo = null;
 
 
     public void init() {
         telemetry.addLine("Status: Initialized");
         wheels.mapWheels(hardwareMap);
         wheels.setDirections();
-        colorSensor = hardwareMap.colorSensor.get("colorSensor");
-        colorSensor.enableLed(false);
-        servo = hardwareMap.servo.get("servo");
+        //colorSensor = hardwareMap.colorSensor.get("colorSensor");
+        //colorSensor.enableLed(false);
+        //servo = hardwareMap.servo.get("servo");
     }
 
     public void loop() {
         controlWheels();
 
+        /*
         if (colorSensor.blue() >= 5) {
             servo.setPosition(0.2);
         } else if (colorSensor.red() >= 5) {
@@ -49,6 +52,7 @@ public class SmallTeleOp extends OpMode {
         telemetryMessage += "\n";
 
         telemetry.addLine(telemetryMessage);
+        */
     }
 
     public void controlWheels() {
