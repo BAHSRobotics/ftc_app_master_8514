@@ -14,10 +14,10 @@ public class Wheels {
 
     public void mapWheels(HardwareMap hardwareMap) {
         /* Assigns software variables to hardware */
-        wheelsArray[2] = hardwareMap.dcMotor.get("rightFrontMotor");
-        wheelsArray[3] = hardwareMap.dcMotor.get("rightBackMotor");
-        wheelsArray[0] = hardwareMap.dcMotor.get("leftFrontMotor");
-        wheelsArray[1] = hardwareMap.dcMotor.get("leftBackMotor");
+        wheelsArray[0] = hardwareMap.dcMotor.get("rightFrontMotor");
+        wheelsArray[1] = hardwareMap.dcMotor.get("rightBackMotor");
+        wheelsArray[2] = hardwareMap.dcMotor.get("leftFrontMotor");
+        wheelsArray[3] = hardwareMap.dcMotor.get("leftBackMotor");
     }
 
     public void moveWheels(double power) {
