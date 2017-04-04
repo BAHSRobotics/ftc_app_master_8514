@@ -42,7 +42,7 @@ public class VuforiaOp extends LinearOpMode {
         initRobot();
         waitForStart();
 
-        while (gyro.isCalibrating()) {
+        while (gyro.isCalibrating() && opModeIsActive()) {
             telemetry.addLine("Gyro still calibrating");
             telemetry.update();
         }
