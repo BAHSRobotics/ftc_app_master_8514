@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -11,6 +12,7 @@ import com.vuforia.Vuforia;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
@@ -30,24 +32,26 @@ public class VuforiaOp extends LinearOpMode {
     VuforiaTrackables beacons;
     VuforiaTrackableDefaultListener wheelsImg;
 
-    Wheels wheels = new Wheels();
-    DcMotor catapultArm = null;
-    DcMotor sweeper = null;
-    GyroSensor gyro = null;
-    ColorSensor colorSensor = null;
+    private Wheels wheels = new Wheels();
+    private DcMotor catapultArm = null;
+    private DcMotor sweeper = null;
+    private GyroSensor gyro = null;
+    private ColorSensor colorSensor = null;
+    private ModernRoboticsI2cRangeSensor rangeSensor = null;
 
     @Override
     public void runOpMode() {
         initVuforia();
         initRobot();
+        telemetry.addLine("Wait 5 seconds until you press play");
+        telemetry.update();
         waitForStart();
 
         while (gyro.isCalibrating() && opModeIsActive()) {
-            telemetry.addLine("Gyro still calibrating");
-            telemetry.update();
+            idle();
         }
-        telemetry.addLine("Gyro finished calibrating");
-        telemetry.update();
+//        telemetry.addLine("Gyro finished calibrating");
+//        telemetry.update();
 
         beacons.activate();
 
@@ -62,14 +66,19 @@ public class VuforiaOp extends LinearOpMode {
 //        catapultArm.setPower(0); // Turn off the catapult
 //        sleep(1000);
 
+        if (!opModeIsActive()) { return; }
         wheels.moveWheels(0.5); // Move forward a little bit
-        sleep(1250 );
+        sleep(1250);
         wheels.stopWheels();
         sleep(750);
         rotateWheelsWithGyro(170, 0.15); // Spin 180 degrees
         sleep(500);
-        wheels.translateRight(0.5);
-        sleep(3000);
+        wheels.translateRight(0.3);
+        while (rangeSensor.getDistance(DistanceUnit.CM) >= 75 && opModeIsActive()) {
+            telemetry.addLine("Distance (cm): " + rangeSensor.getDistance(DistanceUnit.CM));
+            telemetry.update();
+            idle();
+        }
         wheels.stopWheels();
         sleep(500);
         wheels.moveWheels(-0.15);
@@ -80,8 +89,6 @@ public class VuforiaOp extends LinearOpMode {
             if (wheelsImg.getRawPose() != null) {
                 float x = wheelsImg.getRawPose().getData()[wheelsImg.getRawPose().getData().length - 4];
                 if (x <= 50) {
-                    telemetry.addLine("OMG IT WORKS!!! :D");
-                    telemetry.update();
                     break;
                 }
                 telemetry.addLine("Wheel Pose: " + wheelsImg.getRawPose().formatAsTransform());
@@ -92,12 +99,43 @@ public class VuforiaOp extends LinearOpMode {
             }
         }
         wheels.stopWheels();
+        sleep(500);
 
         while (opModeIsActive()) {
-            telemetry.addLine("Red: " + colorSensor.red());
-            telemetry.addLine("Green: " + colorSensor.green());
-            telemetry.addLine("Blue: " + colorSensor.blue());
+            for (int i = 0; i < wheelsImg.getRawPose().getData().length; i++) {
+                telemetry.addLine(wheelsImg.getRawPose().getData()[i] + "\n");
+            }
+            telemetry.addLine(wheelsImg.getRawPose().formatAsTransform());
             telemetry.update();
+        }
+
+//        wheels.translateRight(0.3);
+//        while (rangeSensor.getDistance(DistanceUnit.CM) >= 25 && opModeIsActive()) {
+//            telemetry.addLine("Distance (cm): " + rangeSensor.getDistance(DistanceUnit.CM));
+//            telemetry.update();
+//            idle();
+//        }
+//        wheels.stopWheels();
+    }
+
+    @Override
+    public synchronized void waitForStart() {
+        while (!isStarted()) {
+            synchronized (this) {
+                try {
+                    if (gyro.isCalibrating()) {
+                        telemetry.addLine("Gyro is calibrating...");
+                        telemetry.update();
+                    } else {
+                        telemetry.addLine("Gyro finished calibrating");
+                        telemetry.update();
+                    }
+                    this.wait();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
         }
     }
 
@@ -125,6 +163,7 @@ public class VuforiaOp extends LinearOpMode {
         catapultArm = hardwareMap.dcMotor.get("catapultArm");
         sweeper = hardwareMap.dcMotor.get("sweeper");
         colorSensor = hardwareMap.colorSensor.get("colorSensor");
+        rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rangeSensor");
     }
 
     private void vuforiaStuff(VuforiaTrackables beacons) {
