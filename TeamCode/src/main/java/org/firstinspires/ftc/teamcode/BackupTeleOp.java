@@ -79,6 +79,9 @@ public class BackupTeleOp extends OpMode {
     private void controlWheels() {
         if (gamepad1.dpad_right) {
             wheels.translateRight();
+        } else if (gamepad1.start) {
+            wheels.justOneWheel(1, -0.5);
+            wheels.justOneWheel(2, -0.5);
         } else if (gamepad1.dpad_left) {
             wheels.translateLeft();
         } else if (gamepad1.dpad_up) {

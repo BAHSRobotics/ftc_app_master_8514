@@ -43,8 +43,6 @@ public class VuforiaOp extends LinearOpMode {
     public void runOpMode() {
         initVuforia();
         initRobot();
-        telemetry.addLine("Wait 5 seconds until you press play");
-        telemetry.update();
         waitForStart();
 
         while (gyro.isCalibrating() && opModeIsActive()) {
@@ -74,7 +72,7 @@ public class VuforiaOp extends LinearOpMode {
         rotateWheelsWithGyro(170, 0.15); // Spin 180 degrees
         sleep(500);
         wheels.translateRight(0.3);
-        while (rangeSensor.getDistance(DistanceUnit.CM) >= 75 && opModeIsActive()) {
+        while (rangeSensor.getDistance(DistanceUnit.CM) >= 50 && opModeIsActive()) {
             telemetry.addLine("Distance (cm): " + rangeSensor.getDistance(DistanceUnit.CM));
             telemetry.update();
             idle();
@@ -101,21 +99,42 @@ public class VuforiaOp extends LinearOpMode {
         wheels.stopWheels();
         sleep(500);
 
-        while (opModeIsActive()) {
-            for (int i = 0; i < wheelsImg.getRawPose().getData().length; i++) {
-                telemetry.addLine(wheelsImg.getRawPose().getData()[i] + "\n");
-            }
-            telemetry.addLine(wheelsImg.getRawPose().formatAsTransform());
-            telemetry.update();
-        }
-
-//        wheels.translateRight(0.3);
-//        while (rangeSensor.getDistance(DistanceUnit.CM) >= 25 && opModeIsActive()) {
-//            telemetry.addLine("Distance (cm): " + rangeSensor.getDistance(DistanceUnit.CM));
+//        while (opModeIsActive()) {
+//            StringBuilder sb = new StringBuilder(wheelsImg.getRawPose().formatAsTransform());
+//            telemetry.addLine(sb.toString());
+//            sb.delete(0, sb.indexOf(" ") + 1);
+//            sb.delete(0, sb.indexOf(" ") + 1);
+//            sb.delete(0, sb.indexOf(" ") + 1);
+//            sb.delete(sb.indexOf(" "), sb.length());
+//            int rot = Integer.valueOf(sb.toString());
+//            telemetry.addLine(String.valueOf(rot));
 //            telemetry.update();
-//            idle();
 //        }
-//        wheels.stopWheels();
+        StringBuilder sb = new StringBuilder(wheelsImg.getRawPose().formatAsTransform());
+        telemetry.addLine(sb.toString());
+        sb.delete(0, sb.indexOf(" ") + 1);
+        sb.delete(0, sb.indexOf(" ") + 1);
+        sb.delete(0, sb.indexOf(" ") + 1);
+        sb.delete(sb.indexOf(" "), sb.length());
+        int rot = Integer.valueOf(sb.toString());
+        while (rot >= 0 && opModeIsActive()) {
+            wheels.moveWheels(-0.1, "right");
+            wheels.moveWheels(0.1, "left");
+            sb = new StringBuilder(wheelsImg.getRawPose().formatAsTransform());
+            telemetry.addLine(sb.toString());
+            sb.delete(0, sb.indexOf(" ") + 1);
+            sb.delete(0, sb.indexOf(" ") + 1);
+            sb.delete(0, sb.indexOf(" ") + 1);
+            sb.delete(sb.indexOf(" "), sb.length());
+            rot = Integer.valueOf(sb.toString());
+        }
+        wheels.stopWheels();
+        sleep(500);
+        wheels.translateRight(0.25);
+        while (rangeSensor.getDistance(DistanceUnit.CM) >= 25 && opModeIsActive()) {
+            idle();
+        }
+        wheels.stopWheels();
     }
 
     @Override
@@ -124,10 +143,10 @@ public class VuforiaOp extends LinearOpMode {
             synchronized (this) {
                 try {
                     if (gyro.isCalibrating()) {
-                        telemetry.addLine("Gyro is calibrating...");
+                        telemetry.addLine("Gyro is calibrating... DON'T PRESS PLAY!");
                         telemetry.update();
                     } else {
-                        telemetry.addLine("Gyro finished calibrating");
+                        telemetry.addLine("Gyro finished calibrating. You can press play now.");
                         telemetry.update();
                     }
                     this.wait();
@@ -164,26 +183,6 @@ public class VuforiaOp extends LinearOpMode {
         sweeper = hardwareMap.dcMotor.get("sweeper");
         colorSensor = hardwareMap.colorSensor.get("colorSensor");
         rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rangeSensor");
-    }
-
-    private void vuforiaStuff(VuforiaTrackables beacons) {
-        for (VuforiaTrackable beac : beacons) {
-            OpenGLMatrix pose = ((VuforiaTrackableDefaultListener) beac.getListener()).getPose();
-
-            if (pose != null) {
-
-                VectorF translation = pose.getTranslation();
-
-                telemetry.addLine(beac.getName() + "-Translation: " + translation);
-
-                double degreesToTurn = Math.toDegrees(Math.atan2(translation.get(1), translation.get(2)));
-
-                telemetry.addLine(beac.getName() + "-Degrees: " + degreesToTurn);
-                telemetry.update();
-
-                wheels.stopWheels();
-            }
-        }
     }
 
     private void translateWheelsWithEncoder(int inches, double power) {
@@ -239,7 +238,7 @@ public class VuforiaOp extends LinearOpMode {
         if (degrees > 0) {
             wheels.moveWheels(power, "right");
             wheels.moveWheels(-power, "left");
-            while (gyro.getHeading() <=  degrees || gyro.getHeading() >= 270) {
+            while ((gyro.getHeading() <=  degrees || gyro.getHeading() >= 270) && opModeIsActive()) {
                 telemetry.addLine(String.valueOf(gyro.getHeading()));
                 telemetry.update();
             }
