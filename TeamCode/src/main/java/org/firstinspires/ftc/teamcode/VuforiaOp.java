@@ -48,21 +48,8 @@ public class VuforiaOp extends LinearOpMode {
         while (gyro.isCalibrating() && opModeIsActive()) {
             idle();
         }
-//        telemetry.addLine("Gyro finished calibrating");
-//        telemetry.update();
 
         beacons.activate();
-
-//        catapultArm.setPower(-0.5); // Launch the first ball
-//        sleep(1750);
-//        sweeper.setPower(0.5); // Turn on the sweeper
-//        catapultArm.setPower(0); // Stop the catapult
-//        sleep(1750);
-//        sweeper.setPower(0); // Turn off the sweeper
-//        catapultArm.setPower(-0.5); // Launch the second ball
-//        sleep(2000);
-//        catapultArm.setPower(0); // Turn off the catapult
-//        sleep(1000);
 
         if (!opModeIsActive()) { return; }
         wheels.moveWheels(0.5); // Move forward a little bit
@@ -72,7 +59,7 @@ public class VuforiaOp extends LinearOpMode {
         rotateWheelsWithGyro(170, 0.15); // Spin 180 degrees
         sleep(500);
         wheels.translateRight(0.3);
-        while (rangeSensor.getDistance(DistanceUnit.CM) >= 50 && opModeIsActive()) {
+        while (rangeSensor.getDistance(DistanceUnit.CM) >= 45 && opModeIsActive()) {
             telemetry.addLine("Distance (cm): " + rangeSensor.getDistance(DistanceUnit.CM));
             telemetry.update();
             idle();
@@ -99,17 +86,6 @@ public class VuforiaOp extends LinearOpMode {
         wheels.stopWheels();
         sleep(500);
 
-//        while (opModeIsActive()) {
-//            StringBuilder sb = new StringBuilder(wheelsImg.getRawPose().formatAsTransform());
-//            telemetry.addLine(sb.toString());
-//            sb.delete(0, sb.indexOf(" ") + 1);
-//            sb.delete(0, sb.indexOf(" ") + 1);
-//            sb.delete(0, sb.indexOf(" ") + 1);
-//            sb.delete(sb.indexOf(" "), sb.length());
-//            int rot = Integer.valueOf(sb.toString());
-//            telemetry.addLine(String.valueOf(rot));
-//            telemetry.update();
-//        }
         StringBuilder sb = new StringBuilder(wheelsImg.getRawPose().formatAsTransform());
         telemetry.addLine(sb.toString());
         sb.delete(0, sb.indexOf(" ") + 1);
@@ -129,12 +105,22 @@ public class VuforiaOp extends LinearOpMode {
             rot = Integer.valueOf(sb.toString());
         }
         wheels.stopWheels();
-        sleep(500);
-        wheels.translateRight(0.25);
-        while (rangeSensor.getDistance(DistanceUnit.CM) >= 25 && opModeIsActive()) {
-            idle();
+//        sleep(500);
+//        wheels.translateRight(0.25);
+//        while (rangeSensor.getDistance(DistanceUnit.CM) >= 20 && opModeIsActive()) {
+//            idle();
+//        }
+//        wheels.stopWheels();
+
+        while (opModeIsActive()) {
+            if (wheelsImg != null && wheelsImg.getPose() != null) {
+                telemetry.addLine(wheelsImg.getPose().formatAsTransform());
+                telemetry.update();
+            } else {
+                telemetry.addLine("I can't see it");
+                telemetry.update();
+            }
         }
-        wheels.stopWheels();
     }
 
     @Override
