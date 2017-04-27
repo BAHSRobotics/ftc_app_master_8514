@@ -105,6 +105,31 @@ public class VuforiaOp extends LinearOpMode {
             rot = Integer.valueOf(sb.toString());
         }
         wheels.stopWheels();
+        sleep(500);
+        float x = wheelsImg.getRawPose().getData()[wheelsImg.getRawPose().getData().length - 5];
+        if (x < -4) {
+            wheels.moveWheels(-0.07);
+            while (wheelsImg.getRawPose().getData()[wheelsImg.getRawPose().getData().length - 5] < -4 && opModeIsActive()) {
+
+            }
+        } else {
+            wheels.moveWheels(0.07);
+            while (wheelsImg.getRawPose().getData()[wheelsImg.getRawPose().getData().length - 5] >= -4 && opModeIsActive()) {
+
+            }
+        }
+        wheels.stopWheels();
+
+        while (opModeIsActive()) {
+            if (wheelsImg != null && wheelsImg.getPose() != null) {
+                telemetry.addLine(wheelsImg.getPose().formatAsTransform());
+                telemetry.addLine(String.valueOf(wheelsImg.getRawPose().getData()[wheelsImg.getRawPose().getData().length - 5]));
+                telemetry.update();
+            } else {
+                telemetry.addLine("I can't see it");
+                telemetry.update();
+            }
+        }
 //        sleep(500);
 //        wheels.translateRight(0.25);
 //        while (rangeSensor.getDistance(DistanceUnit.CM) >= 20 && opModeIsActive()) {
@@ -112,15 +137,6 @@ public class VuforiaOp extends LinearOpMode {
 //        }
 //        wheels.stopWheels();
 
-        while (opModeIsActive()) {
-            if (wheelsImg != null && wheelsImg.getPose() != null) {
-                telemetry.addLine(wheelsImg.getPose().formatAsTransform());
-                telemetry.update();
-            } else {
-                telemetry.addLine("I can't see it");
-                telemetry.update();
-            }
-        }
     }
 
     @Override
