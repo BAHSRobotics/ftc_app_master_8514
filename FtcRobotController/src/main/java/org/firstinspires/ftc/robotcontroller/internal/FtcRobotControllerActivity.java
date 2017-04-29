@@ -97,6 +97,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class FtcRobotControllerActivity extends Activity {
 
+
   public static final String TAG = "RCActivity";
 
   private static final int REQUEST_CONFIG_WIFI_CHANNEL = 1;

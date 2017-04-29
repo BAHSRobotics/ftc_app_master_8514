@@ -1,13 +1,10 @@
 package org.firstinspires.ftc.teamcode.util;
 
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-/*
-NOTE TO READER:
-This Utility File is a draft and contents may differ slightly from current software.
- */
 
 public class Arm {
     private DcMotorSimple sweeper;
@@ -46,11 +43,7 @@ public class Arm {
     }
 
     public boolean revComplete() {
-        if (armPosition() >= armRange()[0] && armPosition() <= armRange()[1]) {
-            return true;
-        } else {
-            return false;
-        }
+        return armPosition() >= armRange()[0] && armPosition() <= armRange()[1];
     }
     private int[] armRange() {
         return new int[]{
