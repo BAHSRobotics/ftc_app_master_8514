@@ -4,28 +4,31 @@ package org.firstinspires.ftc.teamcode.util;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
 public class Arm {
     private DcMotorSimple sweeper;
     private DcMotor armMotor;
+    private Servo release;
     private int multiplier = 1;
 
-    public Arm(DcMotor motor, DcMotorSimple motorSimple) {
+    public Arm(DcMotor motor, DcMotorSimple motorSimple, Servo servo) {
         /* Initializes Arm */
         armMotor = motor;
         sweeper = motorSimple;
-
+        release = servo;
     }
 
     public void mapHardware(HardwareMap hardwareMap) {
         armMotor = hardwareMap.dcMotor.get("catapultArm");
         sweeper = hardwareMap.dcMotor.get("sweeper");
+        release = hardwareMap.servo.get("ballDrop");
         armMotor.setDirection(DcMotor.Direction.REVERSE);
-
     }
-    public void initArm() {
+    public void init() {
         /* Initializes catapult arm and sets the desired position */
+        release.setPosition(0.0);
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setTargetPosition(0);
@@ -55,5 +58,13 @@ public class Arm {
     public int armPosition() {
         /* Returns the current position of the catapult */
         return armMotor.getCurrentPosition();
+    }
+    public void drop() {
+        if (release.getPosition() > 0.3) {
+            release.setPosition(0.0);
+        }
+        else if (release.getPosition() < 0.7) {
+            release.setPosition(1.0);
+        }
     }
 }
