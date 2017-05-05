@@ -1,5 +1,5 @@
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.OLD;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -37,7 +37,7 @@ public class TeleOpMode extends OpMode {
     private double targetSweeperPower = 0;
 
     private Wheels wheels = new Wheels();
-    private Arm arm = new Arm(null, null);
+    private Arm arm = new Arm(null, null, null);
 
     // Runs ONCE when the driver hits INIT
     @Override
@@ -48,7 +48,7 @@ public class TeleOpMode extends OpMode {
         arm.mapHardware(hardwareMap);
         // Tells the program that the wheels should spin in the same direction
         wheels.setDirections();
-        arm.initArm(); // Sets runmodes of arm and zeros encoder position
+        arm.init(); // Sets runmodes of arm and zeros encoder position
     }
 
     // Runs ONCE when the drive hits PLAY
