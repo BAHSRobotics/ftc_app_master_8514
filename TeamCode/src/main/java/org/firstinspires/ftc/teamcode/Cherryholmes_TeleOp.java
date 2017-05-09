@@ -39,6 +39,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.LO_Stuff.GamePadWrapper;
+import org.firstinspires.ftc.teamcode.LO_Stuff.Gate;
+
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -65,7 +68,8 @@ public class Cherryholmes_TeleOp extends OpMode
     private DcMotor fl = null;
     private DcMotor br = null;
     private DcMotor bl = null;
-    private Servo gate = null;
+    private Gate gate = null;
+    private GamePadWrapper g1 = null;
     private DcMotor sweeper = null;
     private DcMotor arm = null;
     private DcMotor wheels[] = new DcMotor[4];
@@ -92,7 +96,8 @@ public class Cherryholmes_TeleOp extends OpMode
         fl = hardwareMap.dcMotor.get("fl");
         br = hardwareMap.dcMotor.get("br");
         bl = hardwareMap.dcMotor.get("bl");
-        gate = hardwareMap.servo.get("gate");
+        gate = new Gate(hardwareMap);
+        g1 = new GamePadWrapper(gamepad1);
         sweeper = hardwareMap.dcMotor.get("sweeper");
         arm = hardwareMap.dcMotor.get("arm");
 
@@ -124,7 +129,6 @@ public class Cherryholmes_TeleOp extends OpMode
      */
     @Override
     public void start() {
-        gate.scaleRange(0, 0.5);
         gate.setPosition(0);
         gate_status = false;
         runtime.reset();
@@ -139,14 +143,8 @@ public class Cherryholmes_TeleOp extends OpMode
 
         // 0.0 is closed (false)
         // 1.0 is open (true)
-        if (gamepad1.x) {
-            if (gate_status == false) {
-                gate.setPosition(1);
-                gate_status = true;
-            } else {
-                gate.setPosition(0);
-                gate_status = false;
-            }
+        if (g1.getButtonDown(GamePadWrapper.Buttons.X)) {
+            gate.toggle();
         }
 
         if (gamepad1.y) maxSpeed = 1.0;
@@ -158,8 +156,8 @@ public class Cherryholmes_TeleOp extends OpMode
             if (gamepad1.dpad_down)     for (i = 0; i <= 3; i++) direction[i] = direction[i] - vectors[0][i];
             if (gamepad1.dpad_right)    for (i = 0; i <= 3; i++) direction[i] = direction[i] + vectors[1][i];
             if (gamepad1.dpad_left)     for (i = 0; i <= 3; i++) direction[i] = direction[i] - vectors[1][i];
-            if (gamepad1.left_bumper)   for (i = 0; i <= 3; i++) direction[i] = direction[i] + vectors[2][i];
-            if (gamepad1.right_bumper)  for (i = 0; i <= 3; i++) direction[i] = direction[i] - vectors[2][i];
+            if (gamepad1.left_bumper)   for (i = 0; i <= 3; i++) direction[i] = direction[i] - vectors[2][i];
+            if (gamepad1.right_bumper)  for (i = 0; i <= 3; i++) direction[i] = direction[i] + vectors[2][i];
             move();
         } else {
             wheels[0].setPower(-gamepad1.right_stick_y);
