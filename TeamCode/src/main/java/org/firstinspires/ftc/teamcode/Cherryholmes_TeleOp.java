@@ -73,25 +73,25 @@ public class Cherryholmes_TeleOp extends OpMode
             drive.move(-gamepad1.right_stick_y, -gamepad1.left_stick_y);
         }
 
-        if (gamepad2.b) {
+        if (gamepad1.b) {
             arm.drop();
         }
         // arm and sweeper
-        if (arm.revComplete() && (gamepad2.right_trigger > 0.3) && canShoot) {
+        if (arm.revComplete() && (gamepad1.right_trigger > 0.3) && canShoot) {
             arm.rotateArm();
             canShoot = false;
-        } else if (!gamepad2.start && !canShoot) {
+        } else if (!gamepad1.start && !canShoot) {
             canShoot = true;
         }
-        if (gamepad2.a) {
+        if (gamepad1.a) {
             capLift.drop();
         }
-        else if (gamepad2.y) {
+        else if (gamepad1.y) {
             capLift.lift();
         }
 
         // boolean Arm and sweeper
-        arm.sweepPower(gamepad2.left_trigger);
+        arm.sweepPower(gamepad1.left_trigger);
     }
     /*
      * Code to run ONCE after the driver hits STOP
