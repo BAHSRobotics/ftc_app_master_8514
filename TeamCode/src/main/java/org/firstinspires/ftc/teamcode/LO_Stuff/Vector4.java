@@ -41,6 +41,13 @@ public class Vector4 {
         return z;
     }
 
+    public void resetValues() {
+        w = 0;
+        x = 0;
+        y = 0;
+        z = 0;
+    }
+
     public void add(Vector4 other) {
         w += other.w;
         x += other.x;

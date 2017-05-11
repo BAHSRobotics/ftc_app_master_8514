@@ -51,7 +51,7 @@ public class AnotherTeleOp extends OpMode {
 
         // Controls wheels
         // Adds and subtracts vectors so the robot can move in different directions using multiple buttons
-        directions = Vector4.ZERO;
+        directions.resetValues();
         if (gamepad1.dpad_up) { directions.add(Vector4.FORWARD); }
         if (gamepad1.dpad_down) { directions.subtract(Vector4.FORWARD); }
         if (gamepad1.dpad_right) { directions.add(Vector4.RIGHT); }
