@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.LO_Stuff;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;

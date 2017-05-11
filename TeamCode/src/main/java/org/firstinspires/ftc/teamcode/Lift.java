@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.util;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -10,18 +10,13 @@ public class Lift {
     private DcMotor liftMotor;
     private int multiplier = 4;
 
-    public Lift(DcMotor motor, Servo servo) {
+    public Lift(HardwareMap hardwareMap) {
         /* Initializes Lift */
-        liftMotor = motor;
-        release = servo;
-    }
-
-    public void mapHardware(HardwareMap hardwareMap) {
         liftMotor = hardwareMap.dcMotor.get("lift");
         release = hardwareMap.servo.get("release");
         liftMotor.setDirection(DcMotor.Direction.REVERSE);
-
     }
+
     public void init() {
         /* Initializes catapult lift and sets the desired position */
         release.setPosition(0.0);

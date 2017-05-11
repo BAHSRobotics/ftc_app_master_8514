@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.LO_Stuff;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -41,12 +41,12 @@ public class AnotherTeleOp extends OpMode {
         }
 
         // Sets maximum power
-        if (gamepad1.y) {
-            maxPower = 1;
-        } else if (gamepad1.b) {
-            maxPower = 0.5;
-        } else if (gamepad1.a) {
-            maxPower = 0.25;
+        if (g1.getButtonDown(GamePadWrapper.Buttons.Y)) {
+            if (HelperMath.equals(maxPower, 1)) {
+                maxPower = 0.25;
+            } else {
+                maxPower = 1;
+            }
         }
 
         // Controls wheels
