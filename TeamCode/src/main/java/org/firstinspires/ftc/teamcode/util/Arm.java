@@ -37,7 +37,7 @@ public class Arm {
     public void rotateArm() {
         /* Turns Motor a full revolution, explained in Control Math. */
         armMotor.setTargetPosition(multiplier * 1650);
-        armMotor.setPower(100);
+        armMotor.setPower(-100);
         multiplier++;
     }
     public void sweepPower(double power) {
