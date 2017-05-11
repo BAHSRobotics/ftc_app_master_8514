@@ -18,10 +18,10 @@ public class Wheels {
         fl = hardwareMap.dcMotor.get("fl");
 
         // Sets directions
+        fr.setDirection(DcMotor.Direction.REVERSE);
         br.setDirection(DcMotor.Direction.REVERSE);
-        bl.setDirection(DcMotor.Direction.REVERSE);
-        fr.setDirection(DcMotor.Direction.FORWARD);
         fl.setDirection(DcMotor.Direction.FORWARD);
+        bl.setDirection(DcMotor.Direction.FORWARD);
     }
 
     public void move(double power) {
