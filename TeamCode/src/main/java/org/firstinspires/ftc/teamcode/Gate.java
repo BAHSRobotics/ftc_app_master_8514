@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.LO_Stuff;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -6,10 +6,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Gate {
 
     private Servo gate;
-    private boolean isOpen;
+    private boolean isOpen = true;
 
-    public Gate(HardwareMap hardwareMap) {
-        gate = hardwareMap.servo.get("gate");
+    public Gate(HardwareMap hardwareMap, String name) {
+        gate = hardwareMap.servo.get(name);
     }
 
     public void setPosition(double position) {
