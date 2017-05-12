@@ -9,6 +9,7 @@ public class Lift {
     private Gate release;
     private DcMotor liftMotor;
     private int multiplier = 4;
+    private boolean hasDropped = false;
 
     public Lift(HardwareMap hardwareMap) {
         liftMotor = hardwareMap.dcMotor.get("lift");
@@ -20,13 +21,25 @@ public class Lift {
         /* Initializes catapult lift and sets the desired position */
         release.setPosition(0.0);
     }
+
     public void raise() {
         liftMotor.setPower(1);
     }
+
+    public void lower() {
+        liftMotor.setPower(-1);
+    }
+
+    public void stop() {
+        liftMotor.setPower(0);
+    }
+
     public void drop() {
         release.toggle();
+        hasDropped = true;
     }
-    public void reset() {
-        release.setPosition(0.0);
+
+    public boolean hasDropped() {
+        return hasDropped;
     }
 }
