@@ -14,6 +14,10 @@ public class Lift {
         liftMotor = hardwareMap.dcMotor.get("lift");
         release = new Gate(hardwareMap, "release");
         liftMotor.setDirection(DcMotor.Direction.REVERSE);
+    }
+
+    public void init() {
+        /* Initializes catapult lift and sets the desired position */
         release.setPosition(0.0);
     }
     public void raise() {
