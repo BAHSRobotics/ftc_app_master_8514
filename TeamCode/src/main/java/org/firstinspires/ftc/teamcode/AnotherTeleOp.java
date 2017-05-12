@@ -16,8 +16,7 @@ public class AnotherTeleOp extends OpMode {
 
     private Gate gate;
     private Wheels wheels;
-    private DcMotor sweeper;
-    private DcMotor arm;
+    private Arm arm;
 
     private Vector4 directions = new Vector4();
 
@@ -26,8 +25,7 @@ public class AnotherTeleOp extends OpMode {
 
         gate = new Gate(hardwareMap);
         wheels = new Wheels(hardwareMap);
-        sweeper = hardwareMap.dcMotor.get("sweeper");
-        arm = hardwareMap.dcMotor.get("arm");
+        arm = new Arm(hardwareMap);
     }
 
     public void start() {
@@ -65,9 +63,5 @@ public class AnotherTeleOp extends OpMode {
         } else {
             wheels.move(maxPower, directions);
         }
-
-        // Controls sweeper and arm
-        arm.setPower(gamepad1.right_trigger);
-        sweeper.setPower(gamepad1.left_trigger);
     }
 }
