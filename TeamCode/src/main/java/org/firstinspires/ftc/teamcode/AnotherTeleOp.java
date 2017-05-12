@@ -65,7 +65,7 @@ public class AnotherTeleOp extends OpMode {
         }
 
         // Drops cap ball holder
-        if (gamepad1.start && runtime.seconds() >= 100) {
+        if (gamepad1.start) { // TODO: Add "&& runtime.seconds() >= 100" when we go to competition
             lift.drop();
         }
 
