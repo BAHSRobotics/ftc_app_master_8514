@@ -15,6 +15,7 @@ public class Lift {
         liftMotor = hardwareMap.dcMotor.get("lift");
         release = new Gate(hardwareMap, "release");
         liftMotor.setDirection(DcMotor.Direction.REVERSE);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void init() {
@@ -28,6 +29,7 @@ public class Lift {
 
     public void lower() {
         liftMotor.setPower(-1);
+
     }
 
     public void stop() {

@@ -7,10 +7,12 @@ public class GamePadWrapper {
     private Gamepad gamepad;
 
     public enum Buttons {
+        START,
         X,
         Y
     }
 
+    private boolean isStartDown;
     private boolean isXDown;
     private boolean isYDown;
 
@@ -20,6 +22,14 @@ public class GamePadWrapper {
 
     public boolean getButtonDown(Buttons b) {
         switch (b) {
+            case START:
+                if (gamepad.start && !isStartDown) {
+                    isStartDown = true;
+                    return true;
+                } else if (!gamepad.start) {
+                    isStartDown = false;
+                }
+                return false;
             case X:
                 if (gamepad.x && !isXDown) {
                     isXDown = true;

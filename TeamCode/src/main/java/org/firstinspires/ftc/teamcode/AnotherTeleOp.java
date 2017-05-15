@@ -48,7 +48,7 @@ public class AnotherTeleOp extends OpMode {
     }
 
     public void loop() {
-        telemetry.addData("Status", "Running: " + runtime.toString());
+        //telemetry.addData("Status", "Running: " + runtime.toString());
 
         // Controls gate
         if (g1.getButtonDown(GamePadWrapper.Buttons.X)) {
@@ -65,18 +65,23 @@ public class AnotherTeleOp extends OpMode {
         }
 
         // Drops cap ball holder
-        if (gamepad1.start) { // TODO: Add "&& runtime.seconds() >= 100" when we go to competition
+        if (g1.getButtonDown(GamePadWrapper.Buttons.START)) { // TODO: Add "&& runtime.seconds() >= 100" when we go to competition
             lift.drop();
         }
 
         // Uses motor to raise cap ball
         if (gamepad1.b && lift.hasDropped()) {
             lift.raise();
+            telemetry.addLine("Raising");
         } else if (gamepad1.a && lift.hasDropped()) {
             lift.lower();
+            telemetry.addLine("Lowering");
         } else {
             lift.stop();
+            telemetry.addLine("Stopped");
         }
+        telemetry.addLine(String.valueOf(lift.hasDropped()));
+        telemetry.update();
 
         // Automated control for catapult
         if (arm.revComplete() && (gamepad1.right_trigger > 0.3)) {

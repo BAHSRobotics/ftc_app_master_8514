@@ -18,7 +18,7 @@ public class Arm {
         armMotor = hardwareMap.dcMotor.get("catapultArm");
         sweeper = hardwareMap.dcMotor.get("sweeper");
     //    release = hardwareMap.servo.get("ballDrop");
-        armMotor.setDirection(DcMotor.Direction.REVERSE);
+        armMotor.setDirection(DcMotor.Direction.FORWARD);
     }
 
     public void init() {
