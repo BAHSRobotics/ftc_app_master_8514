@@ -18,7 +18,7 @@ public class Gate {
 
     public void toggle() {
         if (isOpen) {
-            gate.setPosition(0.6);
+            gate.setPosition(0.8);
             isOpen = false;
         } else {
             gate.setPosition(0);

@@ -1,3 +1,5 @@
+package org.firstinspires.ftc.teamcode;
+
 public class CornerAutoOp {
     
     private void moveForwardALittleBitThenUseTheGyroToTurnAround90DegreesThenShootTwoBallsUsingTheArmThenMoveForwardALittleBitMoreAndKnockOverTheCapBall() {

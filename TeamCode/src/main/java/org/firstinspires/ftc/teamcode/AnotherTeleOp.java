@@ -80,12 +80,13 @@ public class AnotherTeleOp extends OpMode {
             lift.stop();
             telemetry.addLine("Stopped");
         }
-        telemetry.addLine(String.valueOf(lift.hasDropped()));
         telemetry.update();
 
         // Automated control for catapult
         if (arm.revComplete() && (gamepad1.right_trigger > 0.3)) {
             arm.rotateArm();
+        } else {
+            arm.stopArm();
         }
         arm.sweepPower(gamepad1.left_trigger);
 
