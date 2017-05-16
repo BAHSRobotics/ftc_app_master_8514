@@ -9,10 +9,7 @@ public class Vector4 {
     public static final Vector4 ROTATION = new Vector4(-1, 1, -1, 1);
     public static final Vector4 ZERO = new Vector4();
 
-    private int w;
-    private int x;
-    private int y;
-    private int z;
+    private int w, x, y, z;
 
     public Vector4() {
 
