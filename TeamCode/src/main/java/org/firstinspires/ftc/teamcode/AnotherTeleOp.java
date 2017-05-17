@@ -46,7 +46,7 @@ public class AnotherTeleOp extends OpMode {
         // Sets maximum power
         if (g1.getButtonDown(GamePadWrapper.Buttons.Y)) {
             if (HelperMath.equals(maxPower, 1)) {
-                maxPower = 0.25;
+                maxPower = 0.4;
             } else {
                 maxPower = 1;
             }
