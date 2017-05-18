@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 
-@Autonomous(name="CornerAutoOp", group="Linear Opmode")
-public class CornerAutoOp extends LinearOpMode {
+@Autonomous(name="SideAutoOp", group="Linear Opmode")
+public class SideAutoOp extends LinearOpMode {
 
     private Wheels wheels;
     private Gate gate;
@@ -25,7 +25,7 @@ public class CornerAutoOp extends LinearOpMode {
         // Make the robot move forward a little bit
         if (!opModeIsActive()) { return; }
         wheels.move(0.5);
-        sleep(1750);
+        sleep(1300);
 
         // Stop moving
         if (!opModeIsActive()) { return; }
@@ -34,7 +34,7 @@ public class CornerAutoOp extends LinearOpMode {
 
         // Rotate so it can get in position to shoot balls
         wheels.move(0.2, Vector4.ROTATION);
-        while (gyro.getHeading() > 285 || gyro.getHeading() < 50) { // "|| gyro.getHeading() < 50" is so the gyro is starts rotating
+        while (gyro.getHeading() > 280 || gyro.getHeading() < 50) { // "|| gyro.getHeading() < 50" is so the gyro is starts rotating
                                                                     // if the gyro reads 1 degree.
             idle();
         }
@@ -56,6 +56,13 @@ public class CornerAutoOp extends LinearOpMode {
         sleep(1500);
         wheels.move(0);
 
+        wheels.move(-1, Vector4.ROTATION);
+        sleep(800);
+        wheels.move(0);
+        sleep(500);
+        wheels.move(0.5);
+        sleep(700);
+        wheels.move(0);
     }
 
     // Override so the driver can know when the gyro is done calibrating.
