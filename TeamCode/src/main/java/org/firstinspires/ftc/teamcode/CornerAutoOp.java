@@ -55,17 +55,28 @@ public class CornerAutoOp extends LinearOpMode {
         sleep(500);
 
         // Open gate and wait for ball to fall into place
+        if (!opModeIsActive()) { return; }
         gate.toggle();
         sleep(2000);
+
+        // Close gate and turn on the catapult
+        if (!opModeIsActive()) { return; }
         gate.toggle();
         catapult.setPower(0.3);
         sleep(2000);
+
+        // Stop catapult
+        if (!opModeIsActive()) { return; }
         catapult.setPower(0);
         sleep(1000);
-        wheels.move(1, Vector4.LEFT);
-        sleep(1500);
-        wheels.move(0);
 
+        // Move robot to the left
+        if (!opModeIsActive()) { return; }
+        wheels.move(-1, Vector4.RIGHT);
+        sleep(1500);
+
+        // Stop
+        wheels.move(0);
     }
 
     // Override so the driver can know when the gyro is done calibrating.

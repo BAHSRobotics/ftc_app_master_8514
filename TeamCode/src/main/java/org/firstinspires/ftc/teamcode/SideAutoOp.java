@@ -39,27 +39,58 @@ public class SideAutoOp extends LinearOpMode {
             idle();
         }
 
+        // Stop moving
+        if (!opModeIsActive()) { return; }
         wheels.move(0);
         sleep(500);
+
+        // Turn on the catapult
+        if (!opModeIsActive()) { return; }
         catapult.setPower(0.3);
         sleep(2000);
+
+        // Turn off the catapult
+        if (!opModeIsActive()) { return; }
         catapult.setPower(0);
         sleep(500);
+
+        // Open gate and wait for ball to fall into place
+        if (!opModeIsActive()) { return; }
         gate.toggle();
         sleep(2000);
+
+        // Close gate and turn on the catapult
+        if (!opModeIsActive()) { return; }
         gate.toggle();
         catapult.setPower(0.3);
         sleep(2000);
+
+        // Stop catapult
+        if (!opModeIsActive()) { return; }
         catapult.setPower(0);
         sleep(1000);
-        wheels.move(1, Vector4.LEFT);
-        sleep(1500);
-        wheels.move(0);
 
-        wheels.move(-1, Vector4.ROTATION);
-        sleep(800);
+        // Move robot to the left
+        if (!opModeIsActive()) { return; }
+        wheels.move(-1, Vector4.RIGHT);
+        sleep(1500);
+
+        // Stop robot
+        if (!opModeIsActive()) { return; }
         wheels.move(0);
         sleep(500);
+
+        // Rotate robot to knock over the cap ball
+        if (!opModeIsActive()) { return; }
+        wheels.move(-1, Vector4.ROTATION);
+        sleep(800);
+
+        // Stop robot
+        if (!opModeIsActive()) { return; }
+        wheels.move(0);
+        sleep(500);
+
+        // Move forward to land on the center
         wheels.move(0.5);
         sleep(700);
         wheels.move(0);
