@@ -34,17 +34,27 @@ public class CornerAutoOp extends LinearOpMode {
 
         // Rotate so it can get in position to shoot balls
         wheels.move(0.2, Vector4.ROTATION);
-        while (gyro.getHeading() > 285 || gyro.getHeading() < 50) { // "|| gyro.getHeading() < 50" is so the gyro is starts rotating
-                                                                    // if the gyro reads 1 degree.
+        while ((gyro.getHeading() > 285 || gyro.getHeading() < 50) && opModeIsActive()) { // "|| gyro.getHeading() < 50" is so the gyro is starts rotating
+                                                                                          // if the gyro reads 1 degree.
             idle();
         }
 
+        // Stop moving
+        if (!opModeIsActive()) { return; }
         wheels.move(0);
         sleep(500);
+
+        // Turn on the catapult
+        if (!opModeIsActive()) { return; }
         catapult.setPower(0.3);
         sleep(2000);
+
+        // Turn off the catapult
+        if (!opModeIsActive()) { return; }
         catapult.setPower(0);
         sleep(500);
+
+        // Open gate and wait for ball to fall into place
         gate.toggle();
         sleep(2000);
         gate.toggle();
