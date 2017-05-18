@@ -6,6 +6,7 @@ public class Vector4 {
 
     public static final Vector4 FORWARD = new Vector4(1, 1, 1, 1);
     public static final Vector4 RIGHT = new Vector4(1, 1, -1, -1);
+    public static final Vector4 LEFT = new Vector4(-1, -1, 1, 1);
     public static final Vector4 ROTATION = new Vector4(-1, 1, -1, 1);
     public static final Vector4 ZERO = new Vector4();
 
