@@ -22,12 +22,15 @@ public class CornerAutoOp extends LinearOpMode {
 
         waitForStart();
 
+        if (!opModeIsActive()) { return; }
         wheels.move(0.5);
         sleep(1750);
+
+
         wheels.move(0);
         sleep(1000);
         wheels.move(0.2, Vector4.ROTATION);
-        while (gyro.getHeading() > 285) {
+        while (gyro.getHeading() > 285 || gyro.getHeading() < 100) {
             idle();
         }
         wheels.move(0);
