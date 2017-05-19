@@ -26,6 +26,7 @@ public class TwoTeleOp extends OpMode {
     private double maxPower = 1;
 
     private GamePadWrapper g1;
+    private GamePadWrapper g2;
 
     private Gate gate;
     private Wheels wheels;
@@ -35,6 +36,7 @@ public class TwoTeleOp extends OpMode {
 
     public void init() {
         g1 = new GamePadWrapper(gamepad1);
+        g2 = new GamePadWrapper(gamepad2);
         gate = new Gate(hardwareMap, "gate");
         wheels = new Wheels(hardwareMap);
         arm = new Arm(hardwareMap);
@@ -51,7 +53,7 @@ public class TwoTeleOp extends OpMode {
         //telemetry.addData("Status", "Running: " + runtime.toString());
 
         // Controls gate
-        if (g1.getButtonDown(GamePadWrapper.Buttons.X)) {
+        if (g2.getButtonDown(GamePadWrapper.Buttons.X)) {
             gate.toggle();
         }
 
@@ -83,12 +85,12 @@ public class TwoTeleOp extends OpMode {
         telemetry.update();
 
         // Automated control for catapult
-        if (arm.revComplete() && (gamepad1.right_trigger > 0.3)) {
+        if (arm.revComplete() && (gamepad2.right_trigger > 0.3)) {
             arm.rotateArm();
         } else {
             arm.stopArm();
         }
-        arm.sweepPower(gamepad1.left_trigger);
+        arm.sweepPower(gamepad2.left_trigger);
 
         controlWheels();
     }
